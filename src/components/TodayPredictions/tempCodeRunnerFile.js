@@ -1,0 +1,1 @@
+ <Ionicons name ={'partly-sunny'} size ={25} color = {'white'} marginLeft= {45} marginTop ={-27}/>
