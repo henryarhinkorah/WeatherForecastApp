@@ -9,10 +9,15 @@ import PressureScreen from './src/screens/PressureScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+
+
  
-  const Stack = createStackNavigator();
-  
-  const App = () => {
+  const Stack = createStackNavigator()
+ 
+  export default function App() {
+
+
+
     return (
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Home">
@@ -25,8 +30,7 @@ import { createStackNavigator } from '@react-navigation/stack';
         </Stack.Navigator>
       </NavigationContainer>
     );
-  };
-  export default App;
+  }
 
 const styles = StyleSheet.create({
   container: {

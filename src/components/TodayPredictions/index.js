@@ -3,9 +3,9 @@ import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 
-const TodayPredictions = ({ weatherComment }) => {
+const TodayPredictions = ({ weatherComment}) => {
   return (
-    <View style={[styles.container, weatherComment.toLowerCase() === 'cloudy' && styles.blackContainer]}>
+    <View style={[styles.container, weatherComment.toLowerCase() === 'clouds' && styles.blackContainer]}>
       <Text style ={styles.toptext}>Partly cloudy conditions from 12AM - 8AM, with mostly cloudy conditions expected at 8AM</Text>
      
       <View style ={styles.icons}> 
@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
         width:'90%',
         height:'14%',
         fontWeight:'400',
+        paddingBottom:30,
         
     },
     blackContainer: {
@@ -82,8 +83,8 @@ const styles = StyleSheet.create({
     temperature:{
       fontSize:18,
       color:'white',
-     marginTop:15,
-     marginBottom:60
+     marginTop:5,
+     marginBottom:0
       
     },
     icons:{

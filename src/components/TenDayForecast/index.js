@@ -3,10 +3,18 @@ import React from 'react'
 import Forecastdata from '../../data/Forecastdata'
 import ForecastItem from '../ForecastItem'
 
-const TenDayForecast = ({ weatherComment }) => {
+
+const TenDayForecast = ({ weatherComment, cityName, apiKey }) => {
+
+  const url = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${cityName}&cnt=7&appid=${apiKey}&units=metric`;
+ 
+  const fetchForecast = async () =>{
+    
+  }
+ 
   return (
    
-    <View style={[styles.container, weatherComment.toLowerCase() === 'cloudy' && styles.blackContainer]}>
+    <View style={[styles.container, weatherComment.toLowerCase() === 'clouds' && styles.blackContainer]}>
          
          <Text style={styles.header}>10 - DAY FORECAST</Text>
     

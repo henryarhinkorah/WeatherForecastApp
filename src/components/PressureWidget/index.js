@@ -1,18 +1,40 @@
-import React from 'react';
+import React,  { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { useEffect } from 'react';
 
-const PressureWidget = ({ weatherComment,onPress }) => {
+
+const PressureWidget = ({cityName, weatherComment,onPress }) => {
+const [weather, setWeather] = useState({ "main": {"pressure": 1013,}})
+const [setWeatherComment] = useState(" ");// Initialize as a default comment
+
+const fetchWeather = async () => {
+       console.log("Fetch data");
+       const results = await fetch(url);
+       const data = await results.json();
+       console.log(JSON.stringify(data, null, 2));
+       setWeather(data); 
+   };
+ 
+   useEffect(() => {
+     fetchWeather();
+   },  [cityName])
+ 
+   //for returning a loading button until info loads
+   if(!weather) {
+     return <ActivityIndicator/>
+   }
  
 
+   const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=6b13006e25b05078cc05f51179e74641&units=metric`;
   return (
-    <TouchableOpacity onPress={onPress} style={[styles.container, weatherComment.toLowerCase() === 'cloudy' && styles.blackContainer]}>
+    <TouchableOpacity onPress={onPress} style={[styles.container, weatherComment.toLowerCase() === 'clouds' && styles.blackContainer]}>
       <Text style={styles.title}>
         PRESSURE <FontAwesome5 name="tachometer-alt" size={21} color="white" />
       </Text>
 
       <View style={styles.pressureInfoContainer}>
-        <Text style={styles.pressureValue}>1013 hPa</Text>
+        <Text style={styles.pressureValue}>{weather.main.pressure} hPa</Text>
       </View>
 
       <View style={styles.scaleContainer}>

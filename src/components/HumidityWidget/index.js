@@ -1,22 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
+import { useEffect } from 'react';
 
-const HumidityWidget = ({ weatherComment,onPress }) => {
+
+
+const HumidityWidget = ({ cityName,weatherComment,onPress }) => {
   
+  const [weather, setWeather] = useState({
+    "main":{
+      "humidity":44,
+    }
+  })
+
+ 
+  const fetchWeather = async () => {
+      console.log("Fetch data");
+      const results = await fetch(url);
+      const data = await results.json();
+      console.log(JSON.stringify(data, null, 2));
+      setWeather(data); 
+  };
+  useEffect(() => {
+    fetchWeather();
+  },  [cityName])
+  if(!weather) {
+    return <ActivityIndicator/>
+  }
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=6b13006e25b05078cc05f51179e74641&units=metric`;
+  
+  
+
+
+
   return (
-    <TouchableOpacity onPress={onPress} style={[styles.container, weatherComment.toLowerCase() === 'cloudy' && styles.blackContainer]}>
+    <TouchableOpacity onPress={onPress} style={[styles.container, weatherComment.toLowerCase() === 'clouds' && styles.blackContainer]}>
       <Text style={styles.title}>
         HUMIDITY <Entypo name="air" size={21} color="white" />
       </Text>
 
       <View style={styles.humidityInfoContainer}>
-        <Text style={styles.percentage}>70%</Text>
+        <Text style={styles.percentage}>{weather.main.humidity}%</Text>
       </View>
 
       <View>
         <Text style={styles.comment} numberOfLines={2}>
-          High humidity throughout the day
+          Current humidity
         </Text>
       </View>
     </TouchableOpacity>

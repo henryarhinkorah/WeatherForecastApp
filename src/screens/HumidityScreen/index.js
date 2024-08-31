@@ -25,6 +25,8 @@ const humidityData = {
 };
 
 const HumidityScreen = () => {
+
+ 
   const navigation = useNavigation();
 
   return (

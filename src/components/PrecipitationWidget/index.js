@@ -1,20 +1,42 @@
-import React from 'react';
+import React,  { useState }  from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
+import { useEffect } from 'react';
 
-const Precipitation = ({ weatherComment,onPress }) => {
+const Precipitation = ({ cityName,weatherComment,onPress }) => {
+  const [weather, setWeather] = useState({
+    "main":{
+      "temp":4.4,
+    }
+  })
 
+  const [setWeatherComment] = useState(" ");// Initialize as a default comment
+  const fetchWeather = async () => {
+      console.log("Fetch data");
+      const results = await fetch(url);
+      const data = await results.json();
+      console.log(JSON.stringify(data, null, 2));
+      setWeather(data); 
+  };
+  useEffect(() => {
+    fetchWeather();
+  },  [cityName])
+  if(!weather) {
+    return <ActivityIndicator/>
+  }
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=6b13006e25b05078cc05f51179e74641&units=metric`;
+  
 
   return (
-    <TouchableOpacity onPress={onPress} style={[styles.container, weatherComment.toLowerCase() === 'cloudy' && styles.blackContainer]}>
+    <TouchableOpacity onPress={onPress} style={[styles.container, weatherComment.toLowerCase() === 'clouds' && styles.blackContainer]}>
       <Text style={styles.title}>
         PRECIPITATION <FontAwesome6 name="cloud-rain" size={21} color="white" />
       </Text>
 
       <View style={styles.precipInfoContainer}>
         <Ionicons name="water" size={40} color="white" style={styles.dropIcon} />
-        <Text style={styles.amount}>5 mm</Text>
+        <Text style={styles.amount}>{weather.rain?.['1h']} mm</Text>
       </View>
 
       <View>
