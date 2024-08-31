@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View,ScrollView,ImageBackground, ActivityIndicator, TextInput, TouchableOpacity} from 'react-native'
+import { StyleSheet, Text, View,ScrollView,ImageBackground, ActivityIndicator, TextInput, TouchableOpacity,Alert} from 'react-native'
 import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import TodayPredictions from '../../components/TodayPredictions'
@@ -15,7 +15,9 @@ import SearchBar from '../../components/SearchBar';
 
 const cityName = 'Accra';
 
-const apiKey = '6b13006e25b05078cc05f51179e74641'; 
+const config = require('../../../config.js');
+const apiKey = config.weatherApiKey;
+
 
 
 
@@ -37,20 +39,31 @@ const HomeScreen = () => {
     },  })
 
     const [cityName, setCityName] = useState('Accra'); 
-
+    const [errorMessage, setErrorMessage] = useState('');
 
 
   const navigation = useNavigation();
   // Initialize as a default comment
 
   const fetchWeather = async (cityName) => {
+    try {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=6b13006e25b05078cc05f51179e74641&units=metric`;
       console.log("Fetch data");
       const results = await fetch(url);
       const data = await results.json();
+      if (results.ok) {
       console.log(JSON.stringify(data, null, 2));
      setWeather(data); // Update the weather state including description
      setWeatherComment(data.weather[0]?.main || 'Clear'); // Update weatherComment
+     setErrorMessage(''); // Clear error message
+    } else {
+      throw new Error(data.message || 'Failed to fetch data');
+    }
+  } catch (error) {
+    setErrorMessage('Enter a city or country name');
+    Alert.alert('Error', 'Enter a city or country name');
+    setCityName(''); // Clear the search bar
+  }
   };
 
   useEffect(() => {fetchWeather(cityName);},[cityName])

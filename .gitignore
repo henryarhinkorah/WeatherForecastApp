@@ -35,4 +35,4 @@ yarn-error.*
 *.tsbuildinfo
 
 #api keys
-api.env
+config.js

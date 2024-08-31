@@ -6,9 +6,12 @@ const SearchBar = ({ placeholder, onSearch }) => {
   const [text, setText] = useState('');
 
   const handleSearch = () => {
+    console.log(text); 
     if (text.trim()) {
       onSearch(text.trim());
       setText(''); // Clear the input after search
+    } else {
+      Alert.alert('Error', 'Please enter a city or country name'); // Show alert if input is empty
     }
   };
 
