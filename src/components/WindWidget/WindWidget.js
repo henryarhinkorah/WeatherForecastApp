@@ -5,7 +5,7 @@ import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import { useEffect } from 'react';
 
 //gets properties and info passed from parent - Homescreen
-const WindWidget = ({ cityName, weatherComment, onPress }) => {
+const WindWidget = ({ cityName, weatherComment, onPress,apiKey }) => {
 
   // for deriving actual values from api
   const [weather, setWeather] = useState({ 
@@ -16,7 +16,7 @@ const WindWidget = ({ cityName, weatherComment, onPress }) => {
   })
 
   //general api key used for getting city name from homescreen
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=6b13006e25b05078cc05f51179e74641&units=metric`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`;
 
 
 

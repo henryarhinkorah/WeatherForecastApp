@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const CloudinessWidget = ({ cityName, weatherComment, onPress }) => {
+  const CloudinessWidget = ({ cityName, weatherComment, onPress,apiKey }) => {
   const [weather, setWeather] = useState(null);
+  
 
   const fetchWeather = async () => {
     try {
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=6b13006e25b05078cc05f51179e74641&units=metric`;
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`;
       const results = await fetch(url);
       const data = await results.json();
       setWeather(data);

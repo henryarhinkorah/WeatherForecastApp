@@ -4,12 +4,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import { useEffect } from 'react';
 
-const Precipitation = ({ cityName,weatherComment,onPress }) => {
+const Precipitation = ({ cityName,weatherComment,onPress,apiKey }) => {
   const [weather, setWeather] = useState({
     "main":{
       "temp":4.4,
     }
   })
+
 
   const [setWeatherComment] = useState(" ");// Initialize as a default comment
   const fetchWeather = async () => {
@@ -25,7 +26,7 @@ const Precipitation = ({ cityName,weatherComment,onPress }) => {
   if(!weather) {
     return <ActivityIndicator/>
   }
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=6b13006e25b05078cc05f51179e74641&units=metric`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`;
   
 
   return (

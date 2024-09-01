@@ -4,7 +4,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useEffect } from 'react';
 
 
-const PressureWidget = ({cityName, weatherComment,onPress }) => {
+const PressureWidget = ({cityName, weatherComment,onPress,apiKey }) => {
 const [weather, setWeather] = useState({ "main": {"pressure": 1013,}})
 const [setWeatherComment] = useState(" ");// Initialize as a default comment
 
@@ -26,7 +26,7 @@ const fetchWeather = async () => {
    }
  
 
-   const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=6b13006e25b05078cc05f51179e74641&units=metric`;
+   const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`;
   return (
     <TouchableOpacity onPress={onPress} style={[styles.container, weatherComment.toLowerCase() === 'clouds' && styles.blackContainer]}>
       <Text style={styles.title}>

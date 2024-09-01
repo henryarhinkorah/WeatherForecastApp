@@ -5,8 +5,9 @@ import { useEffect } from 'react';
 
 
 
-const HumidityWidget = ({ cityName,weatherComment,onPress }) => {
-  
+const HumidityWidget = ({ cityName,weatherComment,onPress,apiKey }) => {
+
+
   const [weather, setWeather] = useState({
     "main":{
       "humidity":44,
@@ -27,7 +28,7 @@ const HumidityWidget = ({ cityName,weatherComment,onPress }) => {
   if(!weather) {
     return <ActivityIndicator/>
   }
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=6b13006e25b05078cc05f51179e74641&units=metric`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`;
   
   
 
